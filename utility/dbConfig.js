@@ -1,7 +1,7 @@
 module.exports = {
     user: "root",
-    host: "mysql.railway.internal",
+    host: "shuttle.proxy.rlwy.net",
     password: "WUXXOVcdPvsQNvCHtRqVrLbSIKRRrsgn",
     database: "railway",
-    port: 3306
+    port: 44548
 };
