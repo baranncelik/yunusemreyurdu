@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <base href="">
+  <meta name="description" content="Yunus Emre Öğrenci Yurdu ile nice başarılara...">
+  <title>Yunus Emre Öğrenci Yurdu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <meta name="developer" content="">
+  <meta name="designer" content="">
+  <meta name="theme-color" content="#fe5d49">
+<link rel="icon" type="image/png" href="<%= settings && settings.logo_url %>">
+  <link rel="icon" type="image/png" href="<%= settings.logo_url %>">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="assets/vendor/font-awesome/css/all.min.css" rel="stylesheet">
+  <link href="assets/css/fonts/manrope.css" rel="stylesheet" type="text/css">
+  <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+
+<style>
+  :root {
+    --te-font: Manrope;
+    --te-color: #fe5d49;
+    --te-hover-color: #fe5d49cc;
+  }
+
+  /* === Popup Overlay ve Container === */
+  /* Popup ana arka plan */
+#popupCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* arka planı flu yapar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Kartın kendisi */
+.popup-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  width: 75vw;        /* Ekranın %75’i genişlik */
+  height: 75vh;       /* Ekranın %75’i yükseklik */
+  max-width: 900px;   /* Max genişlik */
+  max-height: 700px;  /* Max yükseklik */
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  position: relative;
+  transform: translateY(-40px);
+  opacity: 0;
+  transition: all 0.4s ease;
+  overflow-y: auto;
+}
+
+/* Kart açıldığında görünür olacak */
+.popup-card.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Üstteki başlık kısmı */
+.popup-card .header {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Kapatma butonu */
+.popup-card .close-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.popup-card .close-btn:hover {
+  color: red;
+}
+
+/* İçerik kısmı */
+.popup-card .body {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* Görsel içeren popup'lar için görsel alanı */
+.popup-card img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+/* Mobil uyum */
+@media (max-width: 768px) {
+  .popup-card {
+    width: 90vw;
+    height: 80vh;
+    padding: 16px;
+  }
+
+  .popup-card .header {
+    font-size: 1.5rem;
+  }
+
+  .popup-card .body {
+    font-size: 0.95rem;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<% if (announcements && announcements.status) { %>
+<div id="popupCanvas">
+  <div class="popup-card" id="duyuruCard">
+    <div class="header">
+      <button class="close-btn" aria-label="Kapat">&times;</button>
+    </div>
+    <div class="body">
+      <img src="<%= announcements.img1_url %>" alt="Duyuru Görseli">
+      <div class="overlay-text">
+        <p><%= announcements.text %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<% } %>
+
+
+
+<div id="siteContent" style="display:<%= (announcements && announcements.status) ? 'none' : 'block' %>;">
+
+
+
+
+  <header class="fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="<%= settings.logo_url %>" width="126" height="69" alt="" class="img-fluid">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Gezinmeyi aç/kapat">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center text-uppercase fw-bold">
+            <li class="nav-item"><a class="nav-link" href="/">Ana Sayfa</a></li>
+            <li class="nav-item"><a class="nav-link" href="#announcements">DUYURULAR </a></li>            
+            <li class="nav-item"><a class="nav-link" href="#about">HAKKIMIZDA </a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">İLETİŞİM</a></li>
+            <li class="nav-item"><a class="nav-link" href="#location">BİZE ULAŞIN</a></li>
+
+            <li class="nav-item">
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="overflow-hidden">
+    <section class="featured-area d-flex align-items-center" style="background-image: url(medias/bg-3.jpg);background-attachment:fixed;background-position: center center;background-size: cover;background-repeat: no-repeat;">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-6">
+            <img src="<%= settings.img_url %>" class="img-fluid rounded shadow" alt="" width="593" height="369">
+          </div>
+          <div class="col-lg-6">
+            <div class="text-center">
+              <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><%= settings.site_title %></h1>
+             <div class="my-3 mx-auto" style="width: 50px; border-bottom: 5px solid var(--te-color)"></div>
+            <p class="lead fw-bold"><%= settings.site_description %></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DUYURULAR -->
+    <section id="announcements">
+      <div class="section-title">Duyurular</div>
+      <div class="swiper announcements-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <% if (announcements) { %>
+              <img src="<%= announcements.img1_url %>" alt="Duyuru 1">
+            <% } else { %>
+              <img src="/media/default.jpg" alt="Duyuru 1">
+            <% } %>
+          </div>
+          <div class="swiper-slide">
+            <% if (announcements) { %>
+              <img src="<%= announcements.img2_url %>" alt="Duyuru 2">
+            <% } else { %>
+              <img src="/media/default.jpg" alt="Duyuru 2">
+            <% } %>
+          </div>
+          <div class="swiper-slide">
+            <% if (announcements) { %>
+              <img src="<%= announcements.img3_url %>" alt="Duyuru 3">
+            <% } else { %>
+              <img src="/media/default.jpg" alt="Duyuru 3">
+            <% } %>
+          </div>
+          <div class="swiper-slide">
+            <% if (announcements) { %>
+              <img src="<%= announcements.img4_url %>" alt="Duyuru 4">
+            <% } else { %>
+              <img src="/media/default.jpg" alt="Duyuru 4">
+            <% } %>
+          </div>
+        </div>
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Navigation -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </section>
+
+
+
+    <section id="about" class="about py-5 bg-white">
+      <div class="container">
+        <h2 class="text-center">Hakkımızda</h2>
+        <div class="my-3 mx-auto" style="width: 50px; border-bottom: 5px solid var(--te-color)"></div>
+        <div class="row g-4 align-items-center my-4">
+          <div class="col-lg-6 order-lg-1">
+            <h3><%= featureds.title %></h3>
+            <div class="my-3" style="width: 50px; border-bottom: 5px solid var(--te-color)"></div>
+            <p><%= featureds.text %></p>
+            <button onclick="window.location.href='/video'" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Tanıtım Videosuna Git </button>
+          </div>
+          <div class="col-lg-6 order-lg-2">
+            <img src="<%= featureds.img_url %>" class="img-fluid rounded shadow" alt="">
+          </div>
+        </div>
+
+
+
+
+
+
+        <hr class="my-5">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-3">
+            <img src="<%= sections.gayemiz_img_url %>" class="img-fluid rounded shadow" alt="">
+          </div>
+          <div class="col-lg-3">
+            <h3>Gayemiz</h3>
+            <div class="my-3" style="width: 50px; border-bottom: 5px solid var(--te-color)"></div>
+            <p><%= sections.gayemiz_text %></p>
+          </div>
+          <div class="col-lg-3">
+            <img src="<%= sections.hedefimiz_img_url %>" class="img-fluid rounded shadow" alt="">
+          </div>
+          <div class="col-lg-3">
+            <h3>Hedefimiz</h3>
+            <div class="my-3" style="width: 50px; border-bottom: 5px solid var(--te-color)"></div>
+            <p><%= sections.hedefimiz_text %></p>
+          </div>
+        </div>
+
+        <div class="charity d-flex align-items-center my-5 py-5"
+            style="background-image: url('medias/bg-4.jpg'); background-attachment:fixed;
+                    background-position: center center; background-size: cover;
+                    background-repeat: no-repeat;">
+          <div class="row g-4 text-center">
+            <div class="offset-lg-2 col-lg-8">
+              <h3>Derneğimiz</h3>
+              <div class="my-3 mx-auto" style="width: 50px; border-bottom: 5px solid var(--te-color)"></div>
+              <p class="lead p-3"><%= sections.charity_text %></p>
+            </div>
+          </div>
+        </div>
+
+
+      <div class="container">
+        
+      </div>
+    </section>
+
+<section id="contact" class="contact p-5 text-center">
+  <h2>İletişim</h2>
+  <div class="my-3 mx-auto" style="width: 50px; border-bottom: 5px solid var(--te-color)"></div>
+
+  <div class="row g-4 mb-5">
+    <div class="offset-lg-2 col-lg-8">
+      <p class="lead"><%= settings.footer_text %></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row g-4">
+
+      <div class="col-lg-4">
+        <div class="contact-icon mb-3">
+          <i class="fa fa-phone fa-2x"></i>
+        </div>
+        <h6 class="text-danger">TELEFON</h6>
+        <p>
+        <a href="tel:<%= settings.contact_phone ? settings.contact_phone.replace(/\D/g, '') : '' %>">
+          <%= settings.contact_phone || '' %>
+        </a>
+        </p>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="contact-icon mb-3">
+          <i class="fa fa-money-check fa-2x"></i>
+        </div>
+        <h6 class="text-danger">IBAN</h6>
+        <p><%= settings.iban_title %><br><%= settings.iban %></p>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="contact-icon mb-3">
+          <i class="fa fa-whatsapp fa-2x"></i>
+        </div>
+        <h6 class="text-danger">WHATSAPP</h6>
+        <p>
+        <a href="https://wa.me/<%= settings.contact_wp ? settings.contact_wp.replace(/\D/g, '') : '' %>" target="_blank" rel="noopener noreferrer">
+          <%= settings.contact_wp || 'Whatsapp numarası yok' %>
+        </a>
+
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <h2 class="section-title">Bize Ulaşın</h2>
+      <div class="contact-grid">
+        <div class="map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d734.7353347151052!2d31.991404398138584!3d36.5556128480735!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14dca32d435929d3%3A0x22e48cc269b1cecc!2sYunus%20emre%20%C3%B6%9Frenci%20yurdu!5e0!3m2!1str!2str!4v1753826992754!5m2!1str!2str"
+            allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="form-wrapper">
+          <form class="contact-form" action="/" method="POST">
+            <input type="text" name="name" placeholder="Ad Soyad" required>
+            <input type="email" name="email" placeholder="E-posta" required>
+            <textarea name="message" rows="5" placeholder="Mesajınız..." required></textarea>
+            <button type="submit">Gönder</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer id="location" class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-contacts">
+        <a href="tel:<%= settings.contact_wp %>"><i class="fa fa-phone"></i><%= settings.contact_phone %></a>
+        <a href="https://wa.me/<%= settings.contact_wp %>" target="_blank"><i class="fa fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2025 Alanya Yunus Emre Öğrenci Yurdu. Tüm Hakları Saklıdır.</p>
+    </div>
+  </footer>
+
+
+    
+    <font style="vertical-align: inherit;"></font>
+</div>
+<script>
+window.addEventListener('load', () => {
+  const canvas      = document.getElementById('popupCanvas');
+  const closeBtn    = document.querySelector('#duyuruCard .close-btn');
+  const duyuruCard  = document.getElementById('duyuruCard');
+  const siteContent = document.getElementById('siteContent');
+
+  // Eğer popup render edilmemişse, site içeriği zaten görünür olacak (server-side ayarlandı).
+  if (!canvas) {
+    // ekstra birşey yapmak istersen buraya ekle
+    return;
+  }
+
+  // Popup render edildi -> onu göster, site içeriğini gizle (server-side zaten gizli ama double-safety)
+  canvas.style.display = 'flex';
+  if (siteContent) siteContent.style.display = 'none';
+
+  if (duyuruCard) duyuruCard.classList.add('show');
+
+  if (!closeBtn) return console.error('Popup close button bulunamadı!');
+
+  closeBtn.addEventListener('click', () => {
+    canvas.style.display = 'none';
+    if (siteContent) siteContent.style.display = 'block';
+  });
+});
+</script>
+
+
+
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

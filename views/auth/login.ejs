@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yunus Emre Yurdu | Giriş Yap</title>
+  <link rel="stylesheet" href="/css/auth.css" />
+</head>
+<body>
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="brand">
+        <h1>Yunus Emre Öğrenci Yurdu Yönetici Giriş Sayfası</h1>
+      </div>
+      <form id="login-form" action="/login" method="POST">
+        <div class="input-group">
+          <label for="name">Kullanıcı Adı </label>
+          <input type="text" id="name" name="name" placeholder="username" required />
+        </div>
+        <div class="input-group">
+          <label for="password">Şifre</label>
+          <input type="password" id="password" name="password" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn-login">Giriş Yap</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+</body>
+</html>

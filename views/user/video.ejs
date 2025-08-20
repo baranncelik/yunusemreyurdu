@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Video Sayfası</title>
+  <style>
+    /* Tüm sayfa sıfırlama */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      position: relative;
+      font-family: Arial, sans-serif;
+    }
+    /* Video tam ekran kaplama */
+    video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+    /* Ana sayfaya dön butonu overlay */
+    .btn-home {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 15px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      border-radius: 4px;
+      z-index: 10;
+      transition: background-color 0.2s;
+    }
+    .btn-home:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+  </style>
+</head>
+<body>
+
+  <a href="/" class="btn-home">Ana Sayfaya Dön</a>
+  <video src="/medias/yunusemre.mp4" controls>
+    Tarayıcınız video etiketini desteklemiyor.
+  </video>
+
+</body>
+</html>
