@@ -1,7 +1,7 @@
-module.exports = { 
-    user : "root",
-    host : "localhost",
-    password : "BaranCelik!48650913",
-    database  : "dormitory_db"
-
+module.exports = {
+    user: "root",
+    host: "mysql.railway.internal",
+    password: "WUXXOVcdPvsQNvCHtRqVrLbSIKRRrsgn",
+    database: "railway",
+    port: 3306
 };
