@@ -2,8 +2,8 @@ const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize("railway", "root", "WUXXOVcdPvsQNvCHtRqVrLbSIKRRrsgn", {
     dialect: "mysql",
-    host: "mysql.railway.internal",
-    port: 3306,
+    host: "shuttle.proxy.rlwy.net",
+    port: 44548,
     timezone: "+03:00"
 });
 
