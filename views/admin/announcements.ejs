@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel</title>
+  <style>
+    :root{ --bg:#f0f2f5; --sidebar:#343a40; --muted:#6c757d; --card:#fff; --accent:#007bff; }
+    *{box-sizing:border-box}
+    body { margin:0; font-family: Inter, system-ui, -apple-system, Arial, sans-serif; background:var(--bg); color:#222; }
+    .sidebar { position:fixed; top:0; left:0; width:220px; height:100vh; background:#343a40; color:#fff; }
+    .sidebar h2 { text-align:center; padding:20px 0; margin:0; font-size:18px; background:#23272b; }
+    .sidebar ul { list-style:none; padding:0; margin:0; }
+    .sidebar li { padding:12px 20px; cursor:pointer; }
+    .sidebar li:hover, .sidebar li.active { background:#495057; }
+    .sidebar ul li a { display: block; padding: 12px 25px; color: #fff; text-decoration: none; transition: background 0.3s ease; } .sidebar ul li a:hover, .sidebar ul li a.active { background: #495057; color: #fff; }
+    .main { margin-left:220px; padding:28px; }
+    .card { background:var(--card); padding:20px; margin-bottom:20px; border-radius:10px; box-shadow:0 6px 20px rgba(16,24,40,0.06); }
+    .card h3 { margin-top:0; }
+    .btn { display:inline-block; padding:10px 16px; border:none; background:var(--accent); color:#fff; border-radius:8px; cursor:pointer; font-weight:600; }
+
+    /* Announcement images layout */
+    .announcement-images { display:flex; gap:15px; flex-wrap:wrap; margin-bottom:14px; }
+    .announcement-item { flex:1; min-width:150px; max-width:220px; display:flex; flex-direction:column; }
+    .announcement-item label { margin-bottom:8px; font-weight:700; color:#333; }
+    .file-wrap{ border:1px dashed #e3e7eb; background:#fbfcfd; padding:10px; border-radius:8px; }
+    input[type="file"]{ display:block; width:100%; }
+    .file-note{ font-size:13px; color:var(--muted); margin-top:8px; }
+
+    /* Fancy textarea */
+    .form-group{ margin-top:12px; }
+    textarea[name="text"]{ width:100%; min-height:140px; padding:14px 16px; border-radius:10px; border:1px solid #e6eef8; background:linear-gradient(180deg,#fff,#fbfdff); box-shadow:inset 0 1px 0 rgba(16,24,40,0.02); font-size:15px; line-height:1.5; resize:vertical; transition:box-shadow .18s ease,border-color .18s ease; font-family:inherit; }
+    textarea[name="text"]::placeholder{ color:#96a0b4; font-weight:500; }
+    textarea[name="text"]:focus{ outline:none; border-color: #8bb6ff; box-shadow:0 6px 24px rgba(67,110,255,0.08); }
+
+    /* Toggle switch */
+    .toggle-row{ display:flex; align-items:center; gap:14px; margin-top:16px; }
+    .toggle-label{ font-weight:700; color:#333; }
+    .toggle{ display:flex; align-items:center; gap:12px; }
+    .switch{ width:52px; height:30px; border-radius:999px; background:#d1d5db; position:relative; cursor:pointer; transition:background .18s ease; box-shadow: inset 0 -3px 6px rgba(0,0,0,0.06); }
+    .knob{ position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%; background:#fff; box-shadow:0 6px 18px rgba(16,24,40,0.12); transition:transform .18s cubic-bezier(.2,.9,.3,1); }
+    .switch.on{ background: linear-gradient(90deg,#34d399,#06b6d4); }
+    .switch.on .knob{ transform: translateX(22px); }
+    .status-text{ font-size:14px; color:var(--muted); font-weight:600; }
+
+    /* small responsive */
+    @media (max-width:720px){ .main{ padding:16px; margin-left:0; } .sidebar{ position:relative; width:100%; height:auto; } }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Admin Panel</h2>
+    <ul id="menu">
+      <li><a href="/admin/messages">Gelen Mesajlar</a></li>
+      <li><a href="/admin/settings">Site Ayarları</a></li>
+      <li><a href="/admin/featureds">Öne Çıkan</a></li>
+      <li><a class="active" href="/admin/announcements">Duyurular</a></li>
+      <li><a href="/admin/sections">Alt Bölümler</a></li>
+    </ul>
+    <div style="position:absolute; bottom:20px; width:100%; text-align:center;">
+      <form action="/logout" method="POST">
+        <button type="submit" class="btn" style="background:#dc3545; padding:10px 20px; border:none; color:#fff; border-radius:8px; cursor:pointer;">Çıkış Yap</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="main">
+    <div id="announcements" class="card">
+      <h3>Duyurular</h3>
+
+      <!-- form: file inputs are intentionally NOT required (opsiyonel) -->
+      <form action="/admin/announcements" method="POST" enctype="multipart/form-data">
+
+        <div class="announcement-images">
+          <div class="announcement-item">
+            <label>Duyuru 1</label>
+            <div class="file-wrap">
+              <input type="file" name="img1_url" accept="image/*" />
+              <div class="file-note">Opsiyonel — boş bırakılabilir.</div>
+            </div>
+          </div>
+
+          <div class="announcement-item">
+            <label>Duyuru 2</label>
+            <div class="file-wrap">
+              <input type="file" name="img2_url" accept="image/*" />
+              <div class="file-note">Opsiyonel — boş bırakılabilir.</div>
+            </div>
+          </div>
+
+          <div class="announcement-item">
+            <label>Duyuru 3</label>
+            <div class="file-wrap">
+              <input type="file" name="img3_url" accept="image/*" />
+              <div class="file-note">Opsiyonel — boş bırakılabilir.</div>
+            </div>
+          </div>
+
+          <div class="announcement-item">
+            <label>Duyuru 4</label>
+            <div class="file-wrap">
+              <input type="file" name="img4_url" accept="image/*" />
+              <div class="file-note">Opsiyonel — boş bırakılabilir.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group card" style="padding:14px;">
+          <label style="font-weight:700; display:block; margin-bottom:8px;">Popup Metni</label>
+          <textarea name="text" placeholder="Duyuru Popup Text... (Opsiyonel)"></textarea>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+            <small class="file-note">Max. 2000 karakter önerilir.</small>
+            <small id="charCount" class="file-note">0 / 2000</small>
+          </div>
+        </div>
+
+<!-- Toggle: will send `status` field (0 veya 1) to backend -->
+<div class="toggle-row">
+  <div class="toggle-label">Duyuru Aktif</div>
+  <div class="toggle">
+    <!-- hidden real input that will be updated and submitted (initial value from DB) -->
+    <input type="hidden" name="status" id="statusInput" value="<%= (announcements && announcements.status) ? '1' : '0' %>" />
+
+    <!-- offscreen checkbox used by the existing JS (also initialized from DB) -->
+    <input
+      type="checkbox"
+      id="statusToggle"
+      style="position:absolute; left:-9999px;"
+      aria-hidden="true"
+      <%= (announcements && announcements.status) ? 'checked' : '' %>
+    />
+
+    <!-- visual switch: add `on` sınıfını server tarafında set edersek JS hemen doğru gösterir -->
+    <div class="switch <%= (announcements && announcements.status) ? 'on' : '' %>" id="visualSwitch" role="button" aria-pressed="<%= (announcements && announcements.status) ? 'true' : 'false' %>" tabindex="0">
+      <div class="knob"></div>
+    </div>
+
+    <div class="status-text" id="statusText"><%= (announcements && announcements.status) ? 'Açık' : 'Kapalı' %></div>
+  </div>
+</div>
+
+        <div style="margin-top:18px;">
+          <button type="submit" class="btn">Güncelle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Toggle behavior: update hidden input before submit
+    (function(){
+      const realHidden = document.getElementById('statusInput');
+      const checkbox = document.getElementById('statusToggle');
+      const visual = document.getElementById('visualSwitch');
+      const statusText = document.getElementById('statusText');
+
+      function updateUI(){
+        if(checkbox.checked){
+          visual.classList.add('on');
+          visual.setAttribute('aria-pressed','true');
+          realHidden.value = '1';
+          statusText.textContent = 'Açık';
+        } else {
+          visual.classList.remove('on');
+          visual.setAttribute('aria-pressed','false');
+          realHidden.value = '0';
+          statusText.textContent = 'Kapalı';
+        }
+      }
+
+      // clicking or pressing space/enter toggles
+      visual.addEventListener('click', ()=>{ checkbox.checked = !checkbox.checked; updateUI(); });
+      visual.addEventListener('keydown', (e)=>{ if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); checkbox.checked = !checkbox.checked; updateUI(); } });
+      checkbox.addEventListener('change', updateUI);
+
+      // init
+      updateUI();
+
+      // optional: character counter for textarea
+      const ta = document.querySelector('textarea[name="text"]');
+      const charCount = document.getElementById('charCount');
+      const MAX = 2000;
+      ta.addEventListener('input', ()=>{
+        const len = ta.value.length;
+        charCount.textContent = len + ' / ' + MAX;
+        if(len > MAX) charCount.style.color = 'crimson'; else charCount.style.color = '';
+      });
+    })();
+  </script>
+</body>
+</html>

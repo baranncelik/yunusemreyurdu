@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel - Gelen Mesajlar</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#f0f2f5; }
+    .sidebar { position:fixed; top:0; left:0; width:220px; height:100vh; background:#343a40; color:#fff; }
+    .sidebar h2 { text-align:center; padding:20px 0; margin:0; font-size:18px; background:#23272b; }
+    .sidebar ul { list-style:none; padding:0; margin:0; }
+    .sidebar li { padding:12px 20px; cursor:pointer; }
+    .sidebar li:hover, .sidebar li.active { background:#495057; }
+    .sidebar ul li a { display: block; padding: 12px 25px; color: #fff; text-decoration: none; transition: background 0.3s ease; } .sidebar ul li a:hover, .sidebar ul li a.active { background: #495057; color: #fff; }
+    .main { margin-left:220px; padding:20px; }
+    .card { background:#fff; padding:20px; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
+    .card h3 { margin-top:0; }
+    table { width:100%; border-collapse:collapse; margin-top:15px; }
+    th, td { padding:10px; border:1px solid #dee2e6; text-align:left; }
+    th { background:#e9ecef; }
+    .btn { padding:6px 12px; margin-right:5px; border:none; border-radius:4px; cursor:pointer; }
+    .btn-read { background:#28a745; color:#fff; }
+    .btn-danger { background:#dc3545; color:#fff; }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Admin Panel</h2>
+    <ul>
+      <li class="active"><a href="/admin/contacts">Gelen Mesajlar</a></li>
+      <li><a href="/admin/settings">Site Ayarları</a></li>
+      <li><a href="/admin/featureds">Öne Çıkan</a></li>
+      <li><a href="/admin/announcements">Duyurular</a></li>
+      <li><a href="/admin/sections">Alt Bölümler</a></li>
+      
+    </ul>
+  <div style="position:absolute; bottom:20px; width:100%; text-align:center;">
+    <form action="/logout" method="POST">
+      <button type="submit" class="btn" style="background:#dc3545; padding:10px 20px; border:none; color:#fff; border-radius:4px; cursor:pointer;">
+        Çıkış Yap
+      </button>
+    </form>
+  </div>
+  </div>
+
+  <div class="main">
+    <div class="card">
+      <h3>Gelen Mesajlar</h3>
+      <form action="/admin/messages" method="POST">
+        <table>
+          <thead>
+            <tr>
+              <th>Ad Soyad</th>
+              <th>Email</th>
+              <th>Mesaj</th>
+              <th>Durum</th>
+              <th>İşlemler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% contacts.forEach(function(msg) { %>
+            <tr>
+              <td><%= msg.name %></td>
+              <td><%= msg.email %></td>
+              <td><%= msg.message %></td>
+              <td><%= msg.read ? 'Okundu' : 'Okunmadı' %></td>
+              <td>
+                <% if (!msg.read) { %>
+                  <button type="submit" name="action" value="read_<%= msg.id %>" class="btn btn-read">Okundu</button>
+                <% } %>
+                <button type="submit" name="action" value="delete_<%= msg.id %>" class="btn btn-danger">Sil</button>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

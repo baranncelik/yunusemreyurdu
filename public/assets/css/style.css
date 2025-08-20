@@ -1,0 +1,263 @@
+/* GENEL AYARLAR */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #efefef;
+  font-family: var(--te-font), sans-serif;
+  font-size: 17px;
+  height: 100%;
+  max-height: 100%;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+header,footer {border-top: 4px solid var(--te-color);}
+main {margin-top:95px;}
+section {padding: 60px 0;}
+
+.nav-link:focus,
+.nav-link:hover {
+  color: var(--te-hover-color);
+}
+
+/* Mobil için mobil menünün biçimlendirilmesi */
+@media only screen and (max-width: 991px) {
+  header nav.navbar #navbarNav {
+    border-top: 2px solid #efefef;
+    margin-top:15px;
+  }
+  header nav.navbar #navbarNav ul li {
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px dotted #ccc;
+    padding-top: 10px;
+  }
+  header nav.navbar #navbarNav ul li:last-child {
+    border-bottom: 0;
+  }
+}
+
+/* Bootstrap'in genel focus gölge olayını iptal edelim */
+.btn.focus,
+.btn:focus,
+.accordion-button:focus,
+.btn-primary:active:focus,
+.form-select:focus,
+.form-control:focus,
+.navbar-toggler:focus,
+.form-check-input:focus {
+  box-shadow: none;
+}
+
+/* DANGER COLOR */
+.btn-danger {background-color: var(--te-color)!important;border-color: var(--te-color)!important;}
+.btn-danger:hover {background-color:var(--te-hover-color)!important;border-color: var(--te-hover-color)!important;}
+.bg-danger {background-color: var(--te-color)!important;}
+.text-danger {color:var(--te-color)!important;}
+
+#contact .contact-icon i {
+  background: var(--te-color);
+  color:white;
+  padding: 20px;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  margin: 20px auto;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+}
+
+#announcements {
+      background: #fafafa;
+      padding: 50px 0;
+    }
+    #announcements .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    #announcements .section-title::after {
+      content: '';
+      width: 60px;
+      height: 4px;
+      background: var(--te-color);
+      display: block;
+      margin: 12px auto 0;
+      border-radius: 2px;
+    }
+    .swiper {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .swiper-slide {
+      width: 100%;
+      height: 350px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;      /* cover yerine fill */
+      display: block;
+    }
+
+
+        .swiper-slide:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      color: #555;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+      background: #fff;
+      color: var(--te-color);
+    }
+    .swiper-pagination-bullet {
+      width: 10px;
+      height: 10px;
+      background: #bbb;
+      opacity: 0.6;
+    }
+    .swiper-pagination-bullet-active {
+      background: var(--te-color);
+      opacity: 1;
+    }
+
+    @media (max-width: 992px) {
+      .swiper-slide {
+        height: 280px;
+      }
+    }
+    @media (max-width: 768px) {
+      .swiper-slide {
+        height: 200px;
+      }
+      .swiper-button-prev,
+      .swiper-button-next {
+        display: none;
+      }
+    }
+
+
+    .contact-section {
+      padding: 80px 0;
+      background: #f9f9f9;
+    }
+    .contact-section .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #333;
+      position: relative;
+    }
+    .contact-section .section-title::after {
+      content: "";
+      width: 60px;
+      height: 4px;
+      background: var(--te-color);
+      display: block;
+      margin: 12px auto 0;
+      border-radius: 2px;
+    }
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    .map-wrapper,
+    .form-wrapper {
+      flex: 1 1 400px;
+      min-height: 300px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .contact-form {
+      background: #fff;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--te-color);
+    }
+    .contact-form button {
+      align-self: flex-end;
+      padding: 12px 30px;
+      background: var(--te-color);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .3s;
+    }
+    .contact-form button:hover {
+      background: #e14b3a;
+    }
+
+    /* ===== Footer ===== */
+    .site-footer {
+      background: #222;
+      color: #ddd;
+      font-size: .9rem;
+    }
+    .site-footer .footer-top {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: center;
+    }
+    .site-footer .footer-contacts a {
+      color: #ddd;
+      margin: 0 15px;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .3s;
+    }
+    .site-footer .footer-contacts a:hover {
+      color: var(--te-color);
+    }
+    .site-footer .footer-bottom {
+      padding: 15px 0;
+      text-align: center;
+    }

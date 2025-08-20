@@ -1,0 +1,174 @@
+    :root {
+      --clr-bg: #f9faff;
+      --clr-primary: #6c63ff;
+      --clr-accent: #ff6584;
+      --clr-dark: #1f1f1f;
+      --transition: 0.3s ease;
+    }
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--clr-bg);
+      color: var(--clr-dark);
+      overflow-x: hidden;
+    }
+    #preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #fff;
+      display: flex;  
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .navbar {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      transition: background var(--transition), box-shadow var(--transition);
+      border-bottom: 1px solid #e0e0e0;
+      border-radius: 0 0 12px 12px;
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .navbar-brand img {
+      height: 60px;
+      transition: transform var(--transition);
+    }
+    .navbar-brand img:hover { transform: scale(1.1); }
+    .nav-link {
+      color: var(--clr-dark) !important;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color var(--transition), transform var(--transition);
+    }
+    .nav-link:hover {
+      color: var(--clr-primary) !important;
+      transform: translateY(-2px);
+    }
+    .navbar-toggler { border: none; }
+    .navbar-toggler-icon { filter: invert(30%); }
+    .btn-accent {
+      background: var(--clr-accent);
+      color: #fff;
+      border-radius: 30px;
+      padding: 0.5rem 1.5rem;
+      transition: background var(--transition);
+    }
+    .btn-accent:hover {
+      background: #ff4f70;
+    }
+    .hero {
+      position: relative;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #000;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("../img/yurt.jpeg") center center / cover no-repeat;
+      opacity: 0.6;
+      z-index: 0;
+    }
+    .hero h1, .hero p, .hero .btn-accent {
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .hero p {
+      color: #eee;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+    .hero .btn-accent {
+      padding: 12px 24px;
+      background-color: #ec4899;
+      text-decoration: none;
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1rem; }
+      #preloader, .visually-hidden{
+      left : -10%;
+      top : -10%;
+    }
+    }
+    section { padding: 6rem 0; }
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      height: 4px;
+      width: 50px;
+      background: var(--clr-primary);
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+    }
+    .card-min {
+      border: none;
+      border-radius: 15px;
+      transition: transform var(--transition);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .card-min:hover {
+      transform: translateY(-8px);
+    }
+    #contact-footer {
+      background: var(--clr-dark);
+      color: #fff;
+      padding: 4rem 0;
+    }
+    #contact-footer h2 {
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+    #contact-footer a {
+      color: var(--clr-accent);
+      text-decoration: none;
+    }
+    #contact-footer a:hover {
+      color: #fff;
+    }
+    .social-icons a {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      transition: color var(--transition);
+    }
+    .social-icons a:hover {
+      color: var(--clr-accent);
+    }
+    .map-responsive {
+      overflow: hidden;
+      padding-bottom: 56.25%;
+      position: relative;
+      height: 0;
+    }
+    .map-responsive iframe {
+      left: 0; top: 0;
+      height: 100%; width: 100%;
+      position: absolute; border: 0;
+    }
